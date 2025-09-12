@@ -10,8 +10,7 @@ function MainContent() {
     >
       <h2 style={{ color: "darkred", textAlign: "center" }}>Welcome!</h2>
       <p style={{ lineHeight: "1.6", textAlign: "justify" }}>
-        Explore the profiles of some amazing people and learn more about their
-        favorite cities.
+       I love to visit New York, Paris, and Tokyo.
       </p>
     </main>
   );
