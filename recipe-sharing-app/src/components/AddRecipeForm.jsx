@@ -4,29 +4,44 @@ import { useRecipeStore } from './recipeStore'
 const AddRecipeForm = () => {
   const addRecipe = useRecipeStore((state) => state.addRecipe)
   const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
+  const [ingredients, setIngredients] = useState('')
+  const [prepTime, setPrepTime] = useState('')
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    if (!title.trim() || !description.trim()) return
-    addRecipe({ id: Date.now(), title, description })
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (!title || !ingredients || !prepTime) return
+
+    addRecipe({
+      id: Date.now(),
+      title,
+      ingredients: ingredients.split(',').map((ing) => ing.trim()),
+      prepTime: Number(prepTime),
+    })
+
     setTitle('')
-    setDescription('')
+    setIngredients('')
+    setPrepTime('')
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Add a Recipe</h2>
+    <form onSubmit={handleSubmit} style={{ marginBottom: '20px' }}>
       <input
         type="text"
+        placeholder="Recipe name"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        placeholder="Title"
       />
-      <textarea
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        placeholder="Description"
+      <input
+        type="text"
+        placeholder="Ingredients (comma separated)"
+        value={ingredients}
+        onChange={(e) => setIngredients(e.target.value)}
+      />
+      <input
+        type="number"
+        placeholder="Prep time (minutes)"
+        value={prepTime}
+        onChange={(e) => setPrepTime(e.target.value)}
       />
       <button type="submit">Add Recipe</button>
     </form>

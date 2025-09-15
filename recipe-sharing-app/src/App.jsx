@@ -1,6 +1,6 @@
+import SearchBar from './components/SearchBar'
 import AddRecipeForm from './components/AddRecipeForm'
 import RecipeList from './components/RecipeList'
-import SearchBar from './components/SearchBar'
 
 function App() {
   return (
