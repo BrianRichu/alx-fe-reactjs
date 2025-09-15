@@ -1,53 +1,55 @@
-import { create } from 'zustand'
+import create from 'zustand'
 
-export const useRecipeStore = create((set, get) => ({
+const useRecipeStore = create(set => ({
   recipes: [],
+  favorites: [],
+  recommendations: [],
   searchTerm: '',
-  ingredientFilter: '',
-  maxPrepTime: null,
 
-  // Actions
-  addRecipe: (newRecipe) =>
-    set((state) => ({ recipes: [...state.recipes, newRecipe] })),
-
+  // Existing actions
+  addRecipe: (newRecipe) => set(state => ({ recipes: [...state.recipes, newRecipe] })),
   setRecipes: (recipes) => set({ recipes }),
-
   setSearchTerm: (term) => set({ searchTerm: term }),
-  setIngredientFilter: (ingredient) => set({ ingredientFilter: ingredient }),
-  setMaxPrepTime: (time) => set({ maxPrepTime: time }),
 
+  // CRUD
   updateRecipe: (id, updatedFields) =>
-    set((state) => ({
-      recipes: state.recipes.map((recipe) =>
-        recipe.id === id ? { ...recipe, ...updatedFields } : recipe
-      ),
+    set(state => ({
+      recipes: state.recipes.map(r =>
+        r.id === id ? { ...r, ...updatedFields } : r
+      )
     })),
-
   deleteRecipe: (id) =>
-    set((state) => ({
-      recipes: state.recipes.filter((recipe) => recipe.id !== id),
+    set(state => ({
+      recipes: state.recipes.filter(r => r.id !== id)
     })),
 
-  // Computed / derived state
-  filteredRecipes: () => {
-    const { recipes, searchTerm, ingredientFilter, maxPrepTime } = get()
+  // Filtering
+  filteredRecipes: () =>
+    set(state => ({
+      recipes: state.recipes.filter(recipe =>
+        recipe.title.toLowerCase().includes(state.searchTerm.toLowerCase())
+      )
+    })),
 
-    return recipes.filter((recipe) => {
-      const matchesTitle = recipe.title
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase())
+  // Favorites
+  addFavorite: (recipeId) =>
+    set(state => ({
+      favorites: [...new Set([...state.favorites, recipeId])]
+    })),
+  removeFavorite: (recipeId) =>
+    set(state => ({
+      favorites: state.favorites.filter(id => id !== recipeId)
+    })),
 
-      const matchesIngredient = ingredientFilter
-        ? recipe.ingredients.some((ing) =>
-            ing.toLowerCase().includes(ingredientFilter.toLowerCase())
-          )
-        : true
-
-      const matchesPrepTime = maxPrepTime
-        ? recipe.prepTime <= maxPrepTime
-        : true
-
-      return matchesTitle && matchesIngredient && matchesPrepTime
-    })
-  },
+  // Mock Recommendations
+  generateRecommendations: () =>
+    set(state => {
+      const recommended = state.recipes.filter(
+        recipe =>
+          state.favorites.includes(recipe.id) && Math.random() > 0.5
+      )
+      return { recommendations: recommended }
+    }),
 }))
+
+export { useRecipeStore }

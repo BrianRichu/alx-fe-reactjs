@@ -2,9 +2,11 @@ import { BrowserRouter as Router, Routes, Route, Link, useParams } from 'react-r
 import SearchBar from './components/SearchBar'
 import AddRecipeForm from './components/AddRecipeForm'
 import RecipeList from './components/RecipeList'
+import FavoritesList from './components/FavoritesList'
+import RecommendationsList from './components/RecommendationsList'
 import { useRecipeStore } from './components/recipeStore'
 
-// Inline RecipeDetails component
+// Inline RecipeDetails (same as before)
 const RecipeDetails = () => {
   const { id } = useParams()
   const recipe = useRecipeStore(state =>
@@ -30,7 +32,9 @@ function App() {
         <h1>My Recipe App</h1>
         <nav style={{ marginBottom: '20px' }}>
           <Link to="/" style={{ marginRight: '10px' }}>Home</Link>
-          <Link to="/add">Add Recipe</Link>
+          <Link to="/add" style={{ marginRight: '10px' }}>Add Recipe</Link>
+          <Link to="/favorites" style={{ marginRight: '10px' }}>Favorites</Link>
+          <Link to="/recommendations">Recommendations</Link>
         </nav>
 
         <Routes>
@@ -45,6 +49,8 @@ function App() {
           />
           <Route path="/add" element={<AddRecipeForm />} />
           <Route path="/recipes/:id" element={<RecipeDetails />} />
+          <Route path="/favorites" element={<FavoritesList />} />
+          <Route path="/recommendations" element={<RecommendationsList />} />
         </Routes>
       </div>
     </Router>
