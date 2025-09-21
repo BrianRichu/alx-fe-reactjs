@@ -1,23 +1,23 @@
 import React, { useState } from "react";
-import { fetchUserData } from "../services/githubService";
+import { advancedUserSearch } from "../services/githubService";
 
 function Search() {
   const [username, setUsername] = useState("");
-  const [user, setUser] = useState(null);
+  const [location, setLocation] = useState("");
+  const [minRepos, setMinRepos] = useState("");
+  const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!username.trim()) return;
-
     setLoading(true);
     setError("");
-    setUser(null);
+    setResults([]);
 
     try {
-      const data = await fetchUserData(username);
-      setUser(data);
+      const data = await advancedUserSearch(username, location, minRepos);
+      setResults(data.items);
     } catch (err) {
       setError("Looks like we cant find the user");
     } finally {
@@ -26,38 +26,79 @@ function Search() {
   };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "2rem" }}>
-      {/* Search Input */}
-      <form onSubmit={handleSubmit}>
+    <div className="max-w-2xl mx-auto p-6">
+      {/* Form */}
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-4 bg-white shadow-md p-6 rounded-2xl"
+      >
+        <h2 className="text-xl font-semibold text-gray-800">
+          GitHub Advanced User Search
+        </h2>
+
         <input
           type="text"
-          placeholder="Enter GitHub username"
+          placeholder="Username (optional)"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          style={{ padding: "8px", width: "250px" }}
+          className="border p-2 rounded-lg focus:ring-2 focus:ring-blue-400"
         />
-        <button type="submit" style={{ padding: "8px 12px", marginLeft: "8px" }}>
+
+        <input
+          type="text"
+          placeholder="Location (optional)"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          className="border p-2 rounded-lg focus:ring-2 focus:ring-blue-400"
+        />
+
+        <input
+          type="number"
+          placeholder="Minimum Repositories (optional)"
+          value={minRepos}
+          onChange={(e) => setMinRepos(e.target.value)}
+          className="border p-2 rounded-lg focus:ring-2 focus:ring-blue-400"
+        />
+
+        <button
+          type="submit"
+          className="bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
+        >
           Search
         </button>
       </form>
 
-      {/* Conditional Rendering */}
-      {loading && <p>Loading...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {user && (
-        <div style={{ marginTop: "1rem" }}>
-          <img
-            src={user.avatar_url}
-            alt={user.login}
-            width="100"
-            style={{ borderRadius: "50%" }}
-          />
-          <h2>{user.name || user.login}</h2>
-          <a href={user.html_url} target="_blank" rel="noreferrer">
-            View Profile
-          </a>
+      {/* Results */}
+      <div className="mt-6">
+        {loading && <p className="text-gray-500">Loading...</p>}
+        {error && <p className="text-red-500">{error}</p>}
+
+        <div className="grid gap-4">
+          {results.map((user) => (
+            <div
+              key={user.id}
+              className="flex items-center gap-4 bg-gray-50 p-4 rounded-xl shadow-sm"
+            >
+              <img
+                src={user.avatar_url}
+                alt={user.login}
+                className="w-16 h-16 rounded-full"
+              />
+              <div>
+                <h3 className="text-lg font-semibold">{user.login}</h3>
+                <a
+                  href={user.html_url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-blue-500 underline"
+                >
+                  View Profile
+                </a>
+              </div>
+            </div>
+          ))}
         </div>
-      )}
+      </div>
     </div>
   );
 }
