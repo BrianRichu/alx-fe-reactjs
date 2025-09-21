@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { advancedUserSearch } from "../services/githubService";
-import { fetchUserData } from "../services/githubService";
+import { advancedUserSearch, fetchUserData } from "../services/githubService";
 
 function Search() {
   const [username, setUsername] = useState("");
@@ -17,8 +16,17 @@ function Search() {
     setResults([]);
 
     try {
-      const data = await advancedUserSearch(username, location, minRepos);
-      setResults(data.items);
+      let data;
+
+      if (location || minRepos) {
+        // Use advanced search if extra filters are provided
+        data = await advancedUserSearch(username, location, minRepos);
+        setResults(data); // advancedUserSearch should return items[]
+      } else if (username) {
+        // Fallback to single user search
+        const user = await fetchUserData(username);
+        setResults([user]); // put single user in an array so we can map()
+      }
     } catch (err) {
       setError("Looks like we cant find the user");
     } finally {
@@ -39,7 +47,7 @@ function Search() {
 
         <input
           type="text"
-          placeholder="Username (optional)"
+          placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           className="border p-2 rounded-lg focus:ring-2 focus:ring-blue-400"
