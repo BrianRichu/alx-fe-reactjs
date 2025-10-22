@@ -1,68 +1,46 @@
-
+// src/components/PostsComponent.jsx
 import { useQuery } from "@tanstack/react-query";
+import React from "react";
 
-function fetchPosts() {
-  return fetch("https://jsonplaceholder.typicode.com/posts").then((res) =>
-    res.json()
-  );
-}
+const fetchPosts = async () => {
+  const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+  if (!response.ok) throw new Error("Network response was not ok");
+  return response.json();
+};
 
 function PostsComponent() {
-  // useQuery hook for data fetching
   const {
-    data: posts,
-    isLoading,
-    isError,
+    data,
     error,
-    refetch,
+    isLoading,
     isFetching,
-  } = useQuery("posts", fetchPosts, {
-    staleTime: 60000, // data stays fresh for 1 minute
-    cacheTime: 300000, // cache remains for 5 minutes
+    refetch,
+  } = useQuery({
+    queryKey: ["posts"],
+    queryFn: fetchPosts,
+    refetchOnWindowFocus: true, // 👈 Required by your task
+    keepPreviousData: true,     // 👈 Required by your task
   });
 
-  // Loading state
-  if (isLoading) {
-    return <p>Loading posts...</p>;
-  }
+  if (isLoading) return <p>Loading posts...</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
-  // Error state
-  if (isError) {
-    return <p style={{ color: "red" }}>Error: {error.message}</p>;
-  }
-
-  // Success state
   return (
-    <div>
+    <div className="p-4">
+      <h2 className="text-xl font-bold mb-3">Posts</h2>
       <button
         onClick={() => refetch()}
-        disabled={isFetching}
-        style={{
-          marginBottom: "1rem",
-          padding: "0.5rem 1rem",
-          backgroundColor: "#007bff",
-          color: "white",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-        }}
+        className="px-4 py-2 bg-blue-600 text-white rounded mb-4"
       >
-        {isFetching ? "Refreshing..." : "Refetch Posts"}
+        Refetch Posts
       </button>
 
-      <ul style={{ listStyleType: "none", padding: 0 }}>
-        {posts.slice(0, 10).map((post) => (
-          <li
-            key={post.id}
-            style={{
-              border: "1px solid #ddd",
-              borderRadius: "8px",
-              padding: "1rem",
-              marginBottom: "1rem",
-              backgroundColor: "#fafafa",
-            }}
-          >
-            <h3>{post.title}</h3>
+      {isFetching && <p className="text-sm text-gray-500">Updating data...</p>}
+
+      <ul className="space-y-2">
+        {data.slice(0, 10).map((post) => (
+          <li key={post.id} className="border p-3 rounded shadow-sm">
+            <h3 className="font-semibold">{post.title}</h3>
             <p>{post.body}</p>
           </li>
         ))}
