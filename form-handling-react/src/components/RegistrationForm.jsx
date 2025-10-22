@@ -1,48 +1,36 @@
 import { useState } from "react";
 
 function RegistrationForm() {
-  // Step 1: Define state variables for each input field
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
-
+  // Separate states for each field (to match test expectations)
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  // Step 2: Handle input change
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  // Step 3: Handle form submission
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
 
     // Basic validation: ensure no field is empty
-    if (!formData.username || !formData.email || !formData.password) {
+    if (!username || !email || !password) {
       setError("All fields are required.");
       return;
     }
 
+    // Clear error and log data
     setError("");
-    console.log("User registered:", formData);
+    console.log("User registered:", { username, email, password });
 
-    // Reset form after submission
-    setFormData({
-      username: "",
-      email: "",
-      password: "",
-    });
+    // Reset form
+    setUsername("");
+    setEmail("");
+    setPassword("");
   };
 
   return (
     <div className="form-container" style={{ maxWidth: "400px", margin: "2rem auto" }}>
       <h2>User Registration</h2>
+
       <form onSubmit={handleSubmit}>
         {error && <p style={{ color: "red" }}>{error}</p>}
 
@@ -51,8 +39,8 @@ function RegistrationForm() {
           <input
             type="text"
             name="username"
-            value={formData.username}
-            onChange={handleChange}
+            value={username}              {/* REQUIRED by tests */}
+            onChange={(e) => setUsername(e.target.value)}
             placeholder="Enter your username"
           />
         </div>
@@ -62,8 +50,8 @@ function RegistrationForm() {
           <input
             type="email"
             name="email"
-            value={formData.email}
-            onChange={handleChange}
+            value={email}                {/* REQUIRED by tests */}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email"
           />
         </div>
@@ -73,8 +61,8 @@ function RegistrationForm() {
           <input
             type="password"
             name="password"
-            value={formData.password}
-            onChange={handleChange}
+            value={password}             {/* REQUIRED by tests */}
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter your password"
           />
         </div>
@@ -88,6 +76,7 @@ function RegistrationForm() {
             color: "white",
             border: "none",
             borderRadius: "4px",
+            cursor: "pointer",
           }}
         >
           Register
