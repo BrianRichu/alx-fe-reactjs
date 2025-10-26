@@ -5,9 +5,8 @@ import recipesData from "../data.json";
 const HomePage = () => {
   const [recipes, setRecipes] = useState([]);
 
-  // ✅ useEffect to simulate fetching data
+  // ✅ Simulate fetching data on mount
   useEffect(() => {
-    // Simulate async data fetching
     setRecipes(recipesData);
   }, []);
 
@@ -17,7 +16,8 @@ const HomePage = () => {
         🍽️ Recipe Sharing Platform
       </h1>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {/* ✅ Responsive grid layout */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {recipes.map((recipe) => (
           <div
             key={recipe.id}
@@ -32,7 +32,6 @@ const HomePage = () => {
               <h2 className="text-2xl font-semibold mb-2 text-gray-800">
                 {recipe.title}
               </h2>
-              {/* ✅ Display the summary field */}
               <p className="text-gray-600 mb-4">{recipe.summary}</p>
               <Link
                 to={`/recipe/${recipe.id}`}
