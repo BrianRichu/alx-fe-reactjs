@@ -1,11 +1,24 @@
 import { Navigate } from "react-router-dom";
 
-const isAuthenticated = () => {
-  return localStorage.getItem("auth") === "true"; // Simulated auth
+/**
+ * Custom authentication hook
+ * Simulates checking if the user is logged in.
+ */
+export const useAuth = () => {
+  const isLoggedIn = localStorage.getItem("auth") === "true";
+  return { isLoggedIn };
 };
 
 const ProtectedRoute = ({ children }) => {
-  return isAuthenticated() ? children : <Navigate to="/login" />;
+  const { isLoggedIn } = useAuth();
+
+  // Redirect to /login if not authenticated
+  if (!isLoggedIn) {
+    return <Navigate to="/login" replace />;
+  }
+
+  // Otherwise, render the protected content
+  return children;
 };
 
 export default ProtectedRoute;
