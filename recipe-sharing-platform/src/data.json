@@ -2,44 +2,41 @@
   {
     "id": 1,
     "title": "Spaghetti Carbonara",
-    "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
-    "image": "https://via.placeholder.com/300x200",
+    "description": "A classic Italian pasta dish made with eggs, cheese, pancetta, and pepper.",
+    "image": "https://images.unsplash.com/photo-1603133872878-684f2b54e3d4",
     "ingredients": [
       "200g spaghetti",
       "100g pancetta",
       "2 large eggs",
-      "50g parmesan cheese",
-      "Black pepper"
+      "50g Parmesan cheese",
+      "Salt and black pepper"
     ],
     "instructions": [
-      "Cook the spaghetti in salted boiling water.",
+      "Cook spaghetti in salted boiling water.",
       "Fry pancetta until crispy.",
-      "Whisk eggs and parmesan together in a bowl.",
-      "Drain pasta and combine with pancetta.",
-      "Remove from heat and stir in egg mixture quickly.",
-      "Season with black pepper and serve."
+      "Beat eggs and mix with grated Parmesan.",
+      "Combine spaghetti with pancetta and remove from heat.",
+      "Quickly mix in the egg-cheese mixture and serve."
     ]
   },
   {
     "id": 2,
-    "title": "Chicken Tikka Masala",
-    "summary": "Chunks of grilled chicken (tikka) cooked in a smooth buttery & creamy tomato based gravy.",
-    "image": "https://via.placeholder.com/300x200",
+    "title": "Chicken Curry",
+    "description": "A flavorful curry with tender chicken pieces simmered in rich spices.",
+    "image": "https://images.unsplash.com/photo-1601050690597-7a4f1a5c5b1d",
     "ingredients": [
       "500g chicken breast",
-      "1 cup yogurt",
-      "2 tbsp tikka masala paste",
-      "1 onion",
-      "400g canned tomatoes",
-      "200ml cream"
+      "2 onions",
+      "2 tomatoes",
+      "1 tbsp curry powder",
+      "1 cup coconut milk"
     ],
     "instructions": [
-      "Marinate chicken in yogurt and tikka paste.",
-      "Grill chicken until golden brown.",
-      "Fry onion, add tomatoes and cook down.",
-      "Add cream and simmer gently.",
-      "Add chicken pieces and simmer for 10 minutes.",
-      "Serve with rice or naan."
+      "Sauté onions until golden.",
+      "Add curry powder and stir for 1 minute.",
+      "Add chicken and cook until browned.",
+      "Add tomatoes and simmer for 5 minutes.",
+      "Pour in coconut milk and simmer until chicken is tender."
     ]
   }
 ]
