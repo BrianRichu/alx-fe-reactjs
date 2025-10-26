@@ -1,42 +1,62 @@
 [
   {
     "id": 1,
-    "title": "Spaghetti Carbonara",
-    "description": "A classic Italian pasta dish made with eggs, cheese, pancetta, and pepper.",
-    "image": "https://images.unsplash.com/photo-1603133872878-684f2b54e3d4",
+    "title": "Spaghetti Bolognese",
+    "image": "/images/spaghetti.jpg",
+    "summary": "A rich, flavorful Italian pasta with a hearty meat sauce.",
+    "description": "Classic spaghetti with homemade bolognese sauce made from ground beef, tomatoes, and herbs.",
     "ingredients": [
       "200g spaghetti",
-      "100g pancetta",
-      "2 large eggs",
-      "50g Parmesan cheese",
-      "Salt and black pepper"
+      "150g minced beef",
+      "1 onion, chopped",
+      "2 garlic cloves, minced",
+      "400g canned tomatoes",
+      "Salt and pepper to taste"
     ],
     "instructions": [
-      "Cook spaghetti in salted boiling water.",
-      "Fry pancetta until crispy.",
-      "Beat eggs and mix with grated Parmesan.",
-      "Combine spaghetti with pancetta and remove from heat.",
-      "Quickly mix in the egg-cheese mixture and serve."
+      "Boil spaghetti in salted water until al dente.",
+      "Sauté onions and garlic, then add minced beef and cook until browned.",
+      "Add canned tomatoes and simmer for 15 minutes.",
+      "Serve sauce over spaghetti and garnish with basil."
     ]
   },
   {
     "id": 2,
     "title": "Chicken Curry",
-    "description": "A flavorful curry with tender chicken pieces simmered in rich spices.",
-    "image": "https://images.unsplash.com/photo-1601050690597-7a4f1a5c5b1d",
+    "image": "/images/chicken-curry.jpg",
+    "summary": "A creamy, mildly spiced chicken curry perfect with rice or naan.",
+    "description": "Tender chicken cooked in a flavorful curry sauce made with coconut milk and spices.",
     "ingredients": [
-      "500g chicken breast",
-      "2 onions",
-      "2 tomatoes",
-      "1 tbsp curry powder",
-      "1 cup coconut milk"
+      "500g chicken breast, diced",
+      "2 tbsp curry powder",
+      "1 onion, chopped",
+      "2 garlic cloves, minced",
+      "400ml coconut milk",
+      "1 tbsp oil"
     ],
     "instructions": [
-      "Sauté onions until golden.",
-      "Add curry powder and stir for 1 minute.",
-      "Add chicken and cook until browned.",
-      "Add tomatoes and simmer for 5 minutes.",
-      "Pour in coconut milk and simmer until chicken is tender."
+      "Sauté onion and garlic until golden.",
+      "Add curry powder and chicken, cooking until browned.",
+      "Pour in coconut milk and simmer for 20 minutes.",
+      "Serve hot with steamed rice."
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Avocado Toast",
+    "image": "/images/avocado-toast.jpg",
+    "summary": "Simple and healthy avocado toast topped with fresh herbs.",
+    "description": "Crispy toast spread with mashed avocado, lemon juice, and a sprinkle of chili flakes.",
+    "ingredients": [
+      "2 slices of bread",
+      "1 ripe avocado",
+      "1 tsp lemon juice",
+      "Salt and pepper to taste"
+    ],
+    "instructions": [
+      "Toast the bread slices.",
+      "Mash the avocado with lemon juice, salt, and pepper.",
+      "Spread the mixture on toast and top with chili flakes."
     ]
   }
 ]
