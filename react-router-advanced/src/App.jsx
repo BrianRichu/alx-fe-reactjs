@@ -9,12 +9,14 @@ function App() {
   return (
     <Router>
       <Routes>
+        {/* Public Routes */}
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
 
-        {/* Dynamic route for blog posts */}
-        <Route path="/post/:postId" element={<BlogPost />} />
+        {/* Dynamic Route for Blog Posts */}
+        <Route path="/blog/:id" element={<BlogPost />} />
 
-        {/* Protected route for Profile */}
+        {/* Protected Routes */}
         <Route
           path="/profile/*"
           element={
@@ -24,7 +26,7 @@ function App() {
           }
         />
 
-        <Route path="/login" element={<Login />} />
+        {/* Redirect any invalid route */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>

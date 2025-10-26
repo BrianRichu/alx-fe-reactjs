@@ -1,14 +1,14 @@
 import { useParams } from "react-router-dom";
 
 const BlogPost = () => {
-  const { postId } = useParams();
+  const { id } = useParams();
 
   const posts = {
     1: { title: "React Router Basics", content: "Learning routing in React..." },
     2: { title: "Advanced Routing", content: "Nested and dynamic routes..." },
   };
 
-  const post = posts[postId];
+  const post = posts[id];
 
   if (!post) return <p>Post not found!</p>;
 
